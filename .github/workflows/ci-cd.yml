@@ -1,0 +1,33 @@
+name: CI/CD Pipeline
+
+# Указываем, что нужно запускать workflow на пуши в основную ветку (main)
+on:
+  push:
+    branches:
+      - master  # Запуск пайплайна при пуше в основную ветку
+
+# Определяем работу, которая будет выполняться в пайплайне
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Выбираем виртуальную машину с Ubuntu
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # Клонируем репозиторий
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'  # Устанавливаем Python 3.9
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt  # Устанавливаем зависимости из requirements.txt
+
+    - name: Run code
+      run: |
+        python backend/app.py # проверяем что наш код запускается
+
+    - name: Deploy to Staging (optional)
+      run: |
+        echo "Deploying to staging..."  # Это пример шага для деплоя
