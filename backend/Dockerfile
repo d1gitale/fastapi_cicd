@@ -1,13 +1,13 @@
-#Используем базовый образ python3.10
+# using base python 3.10 image
 FROM python:3.10
 
 WORKDIR /app
 
 COPY requirements.txt .
-#Данная команда установит зависимости для запуска кода
+# installing dependencies before running code
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-#Данная команда запустит сервер uvicorn "наружу" (так как указан интерфейс 0.0.0.0) на порту 8000
+# this will launch the app "outside" because of 0.0.0.0
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]

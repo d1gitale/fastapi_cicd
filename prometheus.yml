@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 15s # metric gathering interval
+
+scrape_configs:
+  - job_name: "cadvisor"
+    static_configs:
+      - targets: ["cadvisor:8080"] # we use container name, because Prometheus and cAdvisor would be in the same network
